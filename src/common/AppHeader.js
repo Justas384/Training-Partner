@@ -73,6 +73,10 @@ function ProfileDropdownMenu(props) {
     const dropdownMenu = (
         <Menu onClick={props.handleMenuClick} className="profile-dropdown-menu">
             <Menu.Item key="user-info" className="dropdown-item" disabled>
+                <div className="user-name-info">
+                    {props.currentUser.name}
+                </div>
+
                 <div className="username-info">
                     {props.currentUser.username}
                 </div>

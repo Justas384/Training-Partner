@@ -11,6 +11,7 @@ import SignUp from '../component/user/signup/SignUp';
 import {Layout, notification} from 'antd';
 import Diary from "../component/diary/Diary";
 import AppHeader from "../common/AppHeader";
+import LoadingIndicator from "../common/LoadingIndicator";
 
 const {Content} = Layout;
 
@@ -86,7 +87,7 @@ class App extends Component {
 
     render() {
         if (this.state.isLoading) {
-            return <div></div>;
+            return <LoadingIndicator/>
         }
 
         return (
