@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Form, Input, Button, notification} from 'antd';
+import {Button, Form, Input, notification} from 'antd';
 
 import './SignUp.css';
 import {
-    NAME_MAX_LENGTH,
-    USERNAME_MIN_LENGTH,
-    USERNAME_MAX_LENGTH,
     EMAIL_MAX_LENGTH,
+    NAME_MAX_LENGTH,
+    PASSWORD_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
-    PASSWORD_MAX_LENGTH
+    USERNAME_MAX_LENGTH,
+    USERNAME_MIN_LENGTH
 } from '../../../constants';
-import {signup, checkUsernameAvailability, checkEmailAvailability} from '../../../utility/APIUtilities';
+import {checkEmailAvailability, checkUsernameAvailability, signup} from '../../../utility/APIUtilities';
 
 const FormItem = Form.Item;
 
@@ -69,8 +69,9 @@ export default class SignUp extends Component {
             .then(response => {
                 notification.success({
                     message: 'Training Partner',
-                    description: "Thank you! You are successfully registered. Please login to continue!",
+                    description: "You are successfully registered. Please login to continue!",
                 });
+
                 this.props.history.push("/login");
             }).catch(error => {
             notification.error({

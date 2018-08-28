@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {Route, withRouter, Switch} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 
 import {ACCESS_TOKEN} from '../constants/index';
 import './App.css';
 import {getCurrentUser} from '../utility/APIUtilities';
 
-import Login from '../component/user/login/Login';
 import SignUp from '../component/user/signup/SignUp';
+import Login from '../component/user/login/Login';
+import ProgramNew from '../component/program/ProgramNew';
 
 import {Layout, notification} from 'antd';
 import Diary from "../component/diary/Diary";
@@ -99,8 +100,9 @@ class App extends Component {
                 <Content className="app-content">
                     <div className="container">
                         <Switch>
-                            <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />}/>
                             <Route path="/signup" component={SignUp}/>
+                            <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />}/>
+                            <Route path="/programs/new" component={ProgramNew}/>
                             <Route path={"/"} component={Diary}/>
                         </Switch>
                     </div>

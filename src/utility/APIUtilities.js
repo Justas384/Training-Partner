@@ -1,4 +1,4 @@
-import {API_BASE_URL, ACCESS_TOKEN} from '../constants';
+import {ACCESS_TOKEN, API_BASE_URL} from '../constants';
 
 const request = (options) => {
     const headers = new Headers({
@@ -23,6 +23,8 @@ const request = (options) => {
             })
         );
 };
+
+// User related functions.
 
 export function login(loginRequest) {
     return request({
@@ -62,5 +64,22 @@ export function checkEmailAvailability(email) {
     return request({
         url: API_BASE_URL + "/user/checkEmailAvailability?email=" + email,
         method: 'GET'
+    });
+}
+
+// Program related functions.
+
+export function checkProgramTitleAvailability(programTitle) {
+    return request({
+        url: API_BASE_URL + "/programs/checkProgramTitleAvailability?programTitle=" + programTitle,
+        method: 'GET'
+    });
+}
+
+export function saveProgram(saveProgramRequest) {
+    return request({
+        url: API_BASE_URL + "/programs",
+        method: 'POST',
+        body: JSON.stringify(saveProgramRequest)
     });
 }

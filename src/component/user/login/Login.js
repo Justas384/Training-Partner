@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Form, Input, Button, Icon, notification} from 'antd';
+import {Button, Form, Icon, Input, notification} from 'antd';
 
 import {ACCESS_TOKEN} from '../../../constants/index';
 import './Login.css';
@@ -41,6 +41,7 @@ class LoginForm extends Component {
                 login(loginRequest)
                     .then(response => {
                         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+
                         this.props.onLogin();
                     }).catch(error => {
                     if (error.status === 401) {
@@ -91,7 +92,7 @@ class LoginForm extends Component {
 
                 <FormItem>
                     <Button type="primary" htmlType="submit" size="large" className="login-form-button">Login</Button>
-                    {/*Or <Link to="/signup">sign up!</Link>*/}
+                    Or <Link to="/signup">sign up!</Link>
                 </FormItem>
             </Form>
         );

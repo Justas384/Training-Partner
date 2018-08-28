@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {Layout, Menu, Dropdown, Icon} from 'antd';
+import {Dropdown, Icon, Layout, Menu} from 'antd';
 
 import './AppHeader.css';
 
@@ -27,6 +27,12 @@ class AppHeader extends Component {
                 <Menu.Item key="/">
                     <Link to="/">
                         <Icon type="home" className="nav-icon"/>
+                    </Link>
+                </Menu.Item>,
+
+                <Menu.Item key="/market">
+                    <Link to="/">
+                        <Icon type="shop" className="nav-icon"/>
                     </Link>
                 </Menu.Item>,
 

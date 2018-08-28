@@ -7,3 +7,7 @@
 .login-form-button {
     width: 100%;
 }
+
+.login-form input {
+    margin-bottom: 4px;
+}

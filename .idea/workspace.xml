@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4dc805e-e707-45b3-8a73-6dc1cec1cac5" name="Default Changelist" comment="Changed project structure, initial app header, sign up and login implementations.">
+      <change afterPath="$PROJECT_DIR$/src/common/EditableTable.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/EditableTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/component/program/ProgramNew.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/component/program/ProgramNew.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/AppHeader.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/AppHeader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/AppHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/AppHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/user/login/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/user/login/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/user/login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/user/login/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/user/signup/SignUp.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/user/signup/SignUp.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/user/signup/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/user/signup/SignUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/index.js" afterDir="false" />
@@ -24,52 +29,54 @@
     <session id="1035246171">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="6" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="13" />
+          <entry key="css" value="38" />
           <entry key="gitignore" value="1" />
           <entry key="html" value="4" />
           <entry key="ico" value="1" />
-          <entry key="js" value="47" />
+          <entry key="js" value="81" />
           <entry key="json" value="14" />
           <entry key="svg" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="13" />
+          <entry key="CSS" value="38" />
           <entry key="HTML" value="4" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="47" />
+          <entry key="JavaScript" value="81" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SVG" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="151" />
+          <entry key="css" value="708" />
           <entry key="html" value="27" />
-          <entry key="js" value="1710" />
+          <entry key="js" value="5185" />
           <entry key="json" value="23" />
           <entry key="txt" value="100" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="151" />
+          <entry key="CSS" value="708" />
           <entry key="HTML" value="27" />
           <entry key="JSON" value="23" />
-          <entry key="JavaScript" value="1710" />
+          <entry key="JavaScript" value="5185" />
           <entry key="PLAIN_TEXT" value="100" />
         </counts>
       </usages-collector>
@@ -77,13 +84,26 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/component/program/ProgramNew.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1200">
+              <caret line="80" column="53" selection-start-line="80" selection-start-column="53" selection-end-line="80" selection-end-column="53" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -98,11 +118,25 @@
       <find>handleInputChange</find>
       <find>validationFunction</find>
       <find>emailValue</find>
+      <find>context</find>
+      <find>row</find>
+      <find>formRow</find>
+      <find>components</find>
+      <find>this.setState</find>
+      <find>handleDelete</find>
+      <find>dataSource</find>
+      <find>programTitle</find>
+      <find>container</find>
     </findStrings>
     <replaceStrings>
       <replace>environment</replace>
       <replace>exception</replace>
       <replace>email</replace>
+      <replace>EditableContext</replace>
+      <replace>editableRow</replace>
+      <replace>editableFormRow</replace>
+      <replace>exercises</replace>
+      <replace>program</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -133,16 +167,23 @@
         <option value="$PROJECT_DIR$/src/container/Diary.js" />
         <option value="$PROJECT_DIR$/src/common/reducer/rootReducer.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/component/user/login/Login.js" />
         <option value="$PROJECT_DIR$/config-overrides.js" />
         <option value="$PROJECT_DIR$/src/common/LoadingIndicator.js" />
-        <option value="$PROJECT_DIR$/src/app/App.js" />
-        <option value="$PROJECT_DIR$/src/utility/APIUtilities.js" />
-        <option value="$PROJECT_DIR$/src/constants/index.js" />
-        <option value="$PROJECT_DIR$/src/common/AppHeader.js" />
         <option value="$PROJECT_DIR$/src/common/AppHeader.css" />
-        <option value="$PROJECT_DIR$/src/component/user/signup/SignUp.js" />
+        <option value="$PROJECT_DIR$/src/component/user/login/Login.css" />
+        <option value="$PROJECT_DIR$/src/common/AppHeader.js" />
+        <option value="$PROJECT_DIR$/src/component/program/ProgramEdit.css" />
+        <option value="$PROJECT_DIR$/src/component/program/ProgramEdit.js" />
+        <option value="$PROJECT_DIR$/src/app/App.js" />
+        <option value="$PROJECT_DIR$/src/component/user/login/Login.js" />
         <option value="$PROJECT_DIR$/src/component/user/signup/SignUp.css" />
+        <option value="$PROJECT_DIR$/src/constants/index.js" />
+        <option value="$PROJECT_DIR$/src/utility/APIUtilities.js" />
+        <option value="$PROJECT_DIR$/src/component/user/signup/SignUp.js" />
+        <option value="$PROJECT_DIR$/src/common/EditableTable.js" />
+        <option value="$PROJECT_DIR$/src/common/EditableTable.css" />
+        <option value="$PROJECT_DIR$/src/component/program/ProgramNew.css" />
+        <option value="$PROJECT_DIR$/src/component/program/ProgramNew.js" />
       </list>
     </option>
   </component>
@@ -176,6 +217,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -211,7 +253,22 @@
               <item name="training-partner" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="component" type="462c0819:PsiDirectoryNode" />
+              <item name="program" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="training-partner" type="b2602c69:ProjectViewProjectNode" />
+              <item name="training-partner" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="component" type="462c0819:PsiDirectoryNode" />
               <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="training-partner" type="b2602c69:ProjectViewProjectNode" />
+              <item name="training-partner" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="component" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="login" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="training-partner" type="b2602c69:ProjectViewProjectNode" />
@@ -237,7 +294,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -247,6 +303,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
   </component>
   <component name="RecentsManager">
@@ -305,7 +362,9 @@
       <workItem from="1534611523615" duration="1092000" />
       <workItem from="1534616090527" duration="1056000" />
       <workItem from="1534847520097" duration="1952000" />
-      <workItem from="1534862423428" duration="20412000" />
+      <workItem from="1534862423428" duration="45077000" />
+      <workItem from="1535368432444" duration="29991000" />
+      <workItem from="1535465541370" duration="4240000" />
     </task>
     <task id="LOCAL-00001" summary="Changed project structure, initial app header, sign up and login implementations.">
       <created>1534945206923</created>
@@ -318,10 +377,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38826000" />
+    <option name="totallyTimeSpent" value="97722000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="813" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="820" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -329,8 +389,8 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32968536" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32692307" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32551724" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3986207" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -396,20 +456,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/user/login/Login.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/container/Profile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="39" selection-start-column="39" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/container/Profile.js" />
     <entry file="file://$PROJECT_DIR$/src/app/App.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -438,13 +485,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/user/login/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="44" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config-overrides.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -462,41 +502,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/user/login/Login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="92" column="16" lean-forward="true" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+        <state relative-caret-position="645">
+          <caret line="104" column="62" selection-start-line="104" selection-start-column="62" selection-end-line="104" selection-end-column="62" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utility/APIUtilities.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="51" column="1" lean-forward="true" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/common/AppHeader.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
+        <state relative-caret-position="512">
           <caret line="44" column="25" lean-forward="true" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/common/AppHeader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="827">
-          <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+        <state relative-caret-position="15">
+          <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -505,15 +538,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/user/signup/SignUp.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+        <state relative-caret-position="165">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="16" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utility/APIUtilities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="82" column="32" lean-forward="true" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/user/login/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1113">
+          <caret line="96" column="19" lean-forward="true" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/EditableTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/EditableTable.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/program/ProgramNew.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/user/signup/SignUp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="98" column="24" selection-start-line="98" selection-start-column="24" selection-end-line="98" selection-end-column="24" />
+        <state relative-caret-position="600">
+          <caret line="40" column="59" lean-forward="true" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/program/ProgramNew.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="80" column="53" selection-start-line="80" selection-start-column="53" selection-end-line="80" selection-end-column="53" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
