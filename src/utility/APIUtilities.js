@@ -69,9 +69,16 @@ export function checkEmailAvailability(email) {
 
 // Program related functions.
 
-export function checkProgramTitleAvailability(programTitle) {
+export function checkProgramTitleAvailability(programTitle, programId) {
     return request({
-        url: API_BASE_URL + "/programs/checkProgramTitleAvailability?programTitle=" + programTitle,
+        url: API_BASE_URL + "/programs/checkProgramTitleAvailability?programTitle=" + programTitle + '&programId=' + programId,
+        method: 'GET'
+    });
+}
+
+export function getProgram(programId) {
+    return request({
+        url: API_BASE_URL + "/programs/" + programId,
         method: 'GET'
     });
 }

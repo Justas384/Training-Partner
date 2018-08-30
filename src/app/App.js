@@ -7,7 +7,7 @@ import {getCurrentUser} from '../utility/APIUtilities';
 
 import SignUp from '../component/user/signup/SignUp';
 import Login from '../component/user/login/Login';
-import ProgramNew from '../component/program/ProgramNew';
+import ProgramEdit from '../component/program/ProgramEdit';
 
 import {Layout, notification} from 'antd';
 import Diary from "../component/diary/Diary";
@@ -102,7 +102,7 @@ class App extends Component {
                         <Switch>
                             <Route path="/signup" component={SignUp}/>
                             <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />}/>
-                            <Route path="/programs/new" component={ProgramNew}/>
+                            <Route path="/programs/edit" component={ProgramEdit}/>
                             <Route path={"/"} component={Diary}/>
                         </Switch>
                     </div>

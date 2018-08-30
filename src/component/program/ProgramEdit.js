@@ -1,67 +1,14 @@
 import React, {Component} from 'react';
 import {Button, Form, Icon, Input, notification} from 'antd';
 
-import './ProgramNew.css';
+import './ProgramEdit.css';
 import EditableTable from "../../common/EditableTable";
-import {checkProgramTitleAvailability, saveProgram} from "../../utility/APIUtilities";
+import {checkProgramTitleAvailability, getProgram, saveProgram} from "../../utility/APIUtilities";
 import {PROGRAM_TITLE_MAX_LENGTH, PROGRAM_TITLE_MIN_LENGTH} from "../../constants";
 
 const FormItem = Form.Item;
 
-export default class ProgramNew extends Component {
-    handleAdd = () => {
-        const {count, exercises} = this.state;
-
-        const newData = {
-            key: count,
-            day: 0,
-            exercise: 'New exercise',
-            series: 0,
-            repeatsSerie: 0
-        };
-
-        this.setState({
-            exercises: [...exercises, newData],
-
-            count: count + 1,
-        });
-    };
-    handleSave = (row) => {
-        const newData = [...this.state.exercises];
-        const index = newData.findIndex(item => row.key === item.key);
-        const item = newData[index];
-
-        newData.splice(index, 1, {
-            ...item,
-            ...row,
-        });
-
-        this.setState({exercises: newData});
-    };
-    handleDelete = (key) => {
-        const exercises = [...this.state.exercises];
-
-        this.setState({exercises: exercises.filter(item => item.key !== key)});
-    };
-    validateProgramTitle = (programTitle) => {
-        if (programTitle.length < PROGRAM_TITLE_MIN_LENGTH) {
-            return {
-                validateStatus: 'error',
-                errorMsg: `Program title is too short (minimum ${PROGRAM_TITLE_MIN_LENGTH} symbols needed)`
-            }
-        } else if (programTitle.length > PROGRAM_TITLE_MAX_LENGTH) {
-            return {
-                validationStatus: 'error',
-                errorMsg: `Program title is too long (maximum ${PROGRAM_TITLE_MAX_LENGTH} symbols allowed)`
-            }
-        } else {
-            return {
-                validateStatus: null,
-                errorMsg: null
-            }
-        }
-    };
-
+export default class ProgramEdit extends Component {
     constructor(props) {
         super(props);
 
@@ -69,17 +16,18 @@ export default class ProgramNew extends Component {
             programTitle: {
                 value: ''
             },
-            exercises: [
-                {
-                    key: 0,
-                    day: 0,
-                    exercise: 'New exercise',
-                    series: 0,
-                    repeatsSerie: 0
-                }
-            ],
+            exercises: [{
+                key: 0,
+                id: 0,
+                day: 0,
+                exercise: 'New exercise',
+                series: 0,
+                repeatsSerie: 0
+            }],
             count: 1
         };
+
+        this.programId = props.location.state !== undefined ? props.location.state.programId : 0;
 
         this.columns = [{
             title: 'Day',
@@ -134,6 +82,55 @@ export default class ProgramNew extends Component {
         this.isProgramTitleValid = this.isProgramTitleValid.bind(this);
     }
 
+    initializeExercise = () => {
+        const {exercises, count} = this.state;
+
+        const exercise = {
+            key: count,
+            id: 0,
+            day: 0,
+            exercise: 'New exercise',
+            series: 0,
+            repeatsSerie: 0
+        };
+
+        this.setState({
+            exercises: [...exercises, exercise],
+            count: count + 1
+        });
+    };
+
+    loadProgram = () => {
+        getProgram(this.programId)
+            .then(response => {
+                let {count} = this.state;
+                let exercises = response.exercises.map(exercise => {
+                    return {
+                        key: count++,
+                        ...exercise
+                    };
+                });
+
+                this.setState({
+                    programTitle: {
+                        value: response.programTitle,
+                        validateStatus: 'success'
+                    },
+                    exercises,
+                    count
+                });
+            }).catch(error => {
+            notification.error({
+                message: 'Training Partner',
+                description: error.message || 'Program could not be loaded'
+            });
+        });
+    };
+
+    componentWillMount() {
+        if (this.programId) this.loadProgram();
+    }
+
     handleInputChange(event, validationFunction) {
         const target = event.target;
 
@@ -151,9 +148,12 @@ export default class ProgramNew extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        const {programTitle, exercises} = this.state;
+
         const saveProgramRequest = {
-            programTitle: this.state.programTitle.value,
-            exercises: this.state.exercises
+            id: this.programId,
+            programTitle: programTitle.value,
+            exercises,
         };
 
         saveProgram(saveProgramRequest)
@@ -163,7 +163,7 @@ export default class ProgramNew extends Component {
                     description: "Program successfully saved!",
                 });
 
-                this.props.history.push("/trainings/new");
+                this.props.history.goBack();
             }).catch(error => {
             notification.error({
                 message: 'Training Partner',
@@ -171,6 +171,25 @@ export default class ProgramNew extends Component {
             });
         });
     }
+
+    handleSave = row => {
+        const newData = [...this.state.exercises];
+        const index = newData.findIndex(item => row.key === item.key);
+        const item = newData[index];
+
+        newData.splice(index, 1, {
+            ...item,
+            ...row,
+        });
+
+        this.setState({exercises: newData});
+    };
+
+    handleDelete = key => {
+        const exercises = [...this.state.exercises];
+
+        this.setState({exercises: exercises.filter(item => item.key !== key)});
+    };
 
     validateProgramTitleAvailability() {
         const programTitle = this.state.programTitle.value;
@@ -195,7 +214,7 @@ export default class ProgramNew extends Component {
             }
         });
 
-        checkProgramTitleAvailability(programTitle)
+        checkProgramTitleAvailability(programTitle, this.programId)
             .then(response => {
                 if (response.available) {
                     this.setState({
@@ -225,38 +244,65 @@ export default class ProgramNew extends Component {
         });
     };
 
+    validateProgramTitle = (programTitle) => {
+        if (programTitle.length < PROGRAM_TITLE_MIN_LENGTH) {
+            return {
+                validateStatus: 'error',
+                errorMsg: `Program title is too short (minimum ${PROGRAM_TITLE_MIN_LENGTH} symbols needed)`
+            }
+        } else if (programTitle.length > PROGRAM_TITLE_MAX_LENGTH) {
+            return {
+                validationStatus: 'error',
+                errorMsg: `Program title is too long (maximum ${PROGRAM_TITLE_MAX_LENGTH} symbols allowed)`
+            }
+        } else {
+            return {
+                validateStatus: null,
+                errorMsg: null
+            }
+        }
+    };
+
     isProgramTitleValid() {
         return this.state.programTitle.validateStatus === 'success';
     }
 
+    // Render functions.
+
+    renderPageTitle = () => {
+        return !this.programId ? 'New program' : 'Edit program';
+    };
+
     render() {
+        const {programTitle, exercises} = this.state;
+
         return (
             <div className="program-new-container">
-                <h1 className="page-title">New Program</h1>
+                <h1 className="page-title">{this.renderPageTitle()}</h1>
 
                 <div className="program-new-content">
                     <Form>
                         <FormItem label="Program title:"
                                   colon={false}
-                                  validateStatus={this.state.programTitle.validateStatus}
-                                  help={this.state.programTitle.errorMsg}>
+                                  validateStatus={programTitle.validateStatus}
+                                  help={programTitle.errorMsg}>
 
                             <Input name="programTitle"
                                    autoComplete="off"
-                                   value={this.state.programTitle.value}
+                                   value={programTitle.value}
                                    onBlur={this.validateProgramTitleAvailability}
                                    onChange={(event) => this.handleInputChange(event, this.validateProgramTitle)}/>
                         </FormItem>
                     </Form>
 
                     <div className="program-new-row">
-                        <EditableTable dataSource={this.state.exercises}
+                        <EditableTable dataSource={exercises}
                                        columns={this.columns}
                                        handleSave={this.handleSave}
                                        handleDelete={this.handleDelete}/>
                     </div>
 
-                    <Button className="program-new-row" type="dashed" onClick={this.handleAdd}>
+                    <Button className="program-new-row" type="dashed" onClick={this.initializeExercise}>
                         <Icon type="plus"/> Add an exercise
                     </Button>
 
@@ -265,7 +311,7 @@ export default class ProgramNew extends Component {
                             size="large"
                             className="program-new-primary-button"
                             disabled={!this.isProgramTitleValid()}>
-                        Add
+                        Save
                     </Button>
                 </div>
             </div>
