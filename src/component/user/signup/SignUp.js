@@ -5,11 +5,18 @@ import {Button, Form, Input, notification} from 'antd';
 import './SignUp.css';
 import {
     EMAIL_MAX_LENGTH,
+    ERROR_DUPLICATE_EMAIL,
+    ERROR_DUPLICATE_USERNAME,
+    error_empty,
+    error_length,
+    ERROR_UNDEFINED,
+    error_validity,
     NAME_MAX_LENGTH,
     PASSWORD_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
+    SUCCESS_SIGN_UP,
     USERNAME_MAX_LENGTH,
-    USERNAME_MIN_LENGTH
+    USERNAME_MIN_LENGTH,
 } from '../../../constants';
 import {checkEmailAvailability, checkUsernameAvailability, signup} from '../../../utility/APIUtilities';
 
@@ -38,7 +45,7 @@ export default class SignUp extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateUsernameAvailability = this.validateUsernameAvailability.bind(this);
         this.validateEmailAvailability = this.validateEmailAvailability.bind(this);
-        this.isFormInvalid = this.isFormInvalid.bind(this);
+        this.isFormValid = this.isFormValid.bind(this);
     }
 
     handleInputChange(event, validationFunction) {
@@ -69,20 +76,20 @@ export default class SignUp extends Component {
             .then(response => {
                 notification.success({
                     message: 'Training Partner',
-                    description: "You are successfully registered. Please login to continue!",
+                    description: SUCCESS_SIGN_UP
                 });
 
                 this.props.history.push("/login");
             }).catch(error => {
             notification.error({
                 message: 'Training Partner',
-                description: error.message || 'Sorry! Something went wrong. Please try again!'
+                description: error.message || ERROR_UNDEFINED
             });
         });
     }
 
-    isFormInvalid() {
-        return !(
+    isFormValid() {
+        return (
             this.state.name.validateStatus === 'success' &&
             this.state.username.validateStatus === 'success' &&
             this.state.email.validateStatus === 'success' &&
@@ -167,7 +174,10 @@ export default class SignUp extends Component {
                                     htmlType="submit"
                                     size="large"
                                     className="signup-form-button"
-                                    disabled={this.isFormInvalid()}>Sign Up</Button>
+                                    disabled={!this.isFormValid()}
+                            >
+                                Sign Up
+                            </Button>
                             Already registered? <Link to="/login">Login now!</Link>
                         </FormItem>
                     </Form>
@@ -182,7 +192,7 @@ export default class SignUp extends Component {
         if (name.length > NAME_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: `Name is too long (maximum ${NAME_MAX_LENGTH} characters allowed)`
+                errorMsg: error_length('Name', 'long', NAME_MAX_LENGTH)
             }
         } else {
             return {
@@ -196,12 +206,12 @@ export default class SignUp extends Component {
         if (username.length < USERNAME_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Username is too short (minimum ${USERNAME_MIN_LENGTH} symbols needed)`
+                errorMsg: error_length('Username', 'short', USERNAME_MIN_LENGTH)
             }
         } else if (username.length > USERNAME_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: `Username is too long (maximum ${USERNAME_MAX_LENGTH} symbols allowed)`
+                errorMsg: error_length('Username', 'long', USERNAME_MAX_LENGTH)
             }
         } else {
             return {
@@ -249,7 +259,7 @@ export default class SignUp extends Component {
                         username: {
                             value: username,
                             validateStatus: 'error',
-                            errorMsg: 'Username is already taken!'
+                            errorMsg: ERROR_DUPLICATE_USERNAME
                         }
                     });
                 }
@@ -302,7 +312,7 @@ export default class SignUp extends Component {
                         email: {
                             value: email,
                             validateStatus: 'error',
-                            errorMsg: 'Email is already registered'
+                            errorMsg: ERROR_DUPLICATE_EMAIL
                         }
                     });
                 }
@@ -321,7 +331,7 @@ export default class SignUp extends Component {
         if (!email) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Email should not be empty'
+                errorMsg: error_empty('Email')
             }
         }
 
@@ -330,14 +340,14 @@ export default class SignUp extends Component {
         if (!EMAIL_REGEX.test(email)) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Email not valid'
+                errorMsg: error_validity('Email')
             }
         }
 
         if (email.length > EMAIL_MAX_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Email is too long (maximum ${EMAIL_MAX_LENGTH} symbols allowed)`
+                errorMsg: error_length('Email', 'long', EMAIL_MAX_LENGTH)
             }
         }
 
@@ -351,12 +361,12 @@ export default class SignUp extends Component {
         if (password.length < PASSWORD_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Password is too short (minimum ${PASSWORD_MIN_LENGTH} symbols needed)`
+                errorMsg: error_length('Password', 'short', PASSWORD_MIN_LENGTH)
             }
         } else if (password.length > PASSWORD_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: `Password is too long (maximum ${PASSWORD_MAX_LENGTH} symbols allowed)`
+                errorMsg: error_length('Password', 'long', PASSWORD_MAX_LENGTH)
             }
         } else {
             return {

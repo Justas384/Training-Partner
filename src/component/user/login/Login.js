@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Form, Icon, Input, notification} from 'antd';
 
-import {ACCESS_TOKEN} from '../../../constants/index';
+import {ACCESS_TOKEN, error_input, ERROR_LOGIN_CREDENTIALS, ERROR_UNDEFINED} from '../../../constants/index';
 import './Login.css';
 import {login} from '../../../utility/APIUtilities';
 
@@ -47,12 +47,12 @@ class LoginForm extends Component {
                     if (error.status === 401) {
                         notification.error({
                             message: 'Training Partner',
-                            description: 'Your username or password is incorrect. Please try again!'
+                            description: ERROR_LOGIN_CREDENTIALS
                         });
                     } else {
                         notification.error({
                             message: 'Training Partner',
-                            description: error.message || 'Sorry! Something went wrong. Please try again!'
+                            description: error.message || ERROR_UNDEFINED
                         });
                     }
                 });
@@ -67,31 +67,41 @@ class LoginForm extends Component {
             <Form onSubmit={this.handleSubmit} className="login-form">
                 <FormItem>
                     {getFieldDecorator('username', {
-                        rules: [{required: true, message: 'Please input your username!'}],
+                        rules: [{required: true, message: error_input('username')}],
                     })(
                         <Input
                             prefix={<Icon type="user"/>}
                             size="large"
                             name="username"
-                            placeholder="Username"/>
+                            placeholder="Username"
+                            autoComplete="username"
+                        />
                     )}
                 </FormItem>
 
                 <FormItem>
                     {getFieldDecorator('password', {
-                        rules: [{required: true, message: 'Please input your password!'}],
+                        rules: [{required: true, message: error_input('password')}],
                     })(
                         <Input
                             prefix={<Icon type="lock"/>}
                             size="large"
                             name="password"
                             type="password"
-                            placeholder="Password"/>
+                            placeholder="Password"
+                            autoComplete="current-password"
+                        />
                     )}
                 </FormItem>
 
                 <FormItem>
-                    <Button type="primary" htmlType="submit" size="large" className="login-form-button">Login</Button>
+                    <Button type="primary"
+                            htmlType="submit"
+                            size="large"
+                            className="login-form-button"
+                    >
+                        Login
+                    </Button>
                     Or <Link to="/signup">sign up!</Link>
                 </FormItem>
             </Form>

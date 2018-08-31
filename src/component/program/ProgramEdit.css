@@ -1,27 +1,15 @@
-.program-new-container {
+.program-edit-container {
     max-width: 720px;
     margin: 0 auto;
     margin-top: 40px;
 }
 
-.program-new-row, .ant-form {
+.program-edit-row {
     margin-bottom: 20px;
 }
 
-.ant-form input {
+.program-edit-row input {
     width: 200px;
     display: block;
     margin-bottom: 4px;
-}
-
-.program-new-primary-button {
-    margin: 0 auto;
-    display: block;
-}
-
-.program-new-primary-button[disabled], .program-new-primary-button[disabled]:hover, .program-new-primary-button[disabled]:focus {
-    opacity: 0.6;
-    color: #fff;
-    background-color: #1890ff;
-    border-color: #1890ff;
 }

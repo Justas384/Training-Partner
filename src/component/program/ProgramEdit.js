@@ -4,7 +4,16 @@ import {Button, Form, Icon, Input, notification} from 'antd';
 import './ProgramEdit.css';
 import EditableTable from "../../common/EditableTable";
 import {checkProgramTitleAvailability, getProgram, saveProgram} from "../../utility/APIUtilities";
-import {PROGRAM_TITLE_MAX_LENGTH, PROGRAM_TITLE_MIN_LENGTH} from "../../constants";
+import {
+    ERROR_DUPLICATE_PROGRAM_TITLE,
+    error_length,
+    error_loading,
+    ERROR_UNDEFINED,
+    PROGRAM_TITLE_MAX_LENGTH,
+    PROGRAM_TITLE_MIN_LENGTH,
+    success,
+} from "../../constants";
+import {ButtonPrimary} from "../../common/ButtonPrimary";
 
 const FormItem = Form.Item;
 
@@ -79,7 +88,7 @@ export default class ProgramEdit extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateProgramTitleAvailability = this.validateProgramTitleAvailability.bind(this);
-        this.isProgramTitleValid = this.isProgramTitleValid.bind(this);
+        this.isFormValid = this.isFormValid.bind(this);
     }
 
     initializeExercise = () => {
@@ -122,7 +131,7 @@ export default class ProgramEdit extends Component {
             }).catch(error => {
             notification.error({
                 message: 'Training Partner',
-                description: error.message || 'Program could not be loaded'
+                description: error.message || error_loading('Program')
             });
         });
     };
@@ -160,14 +169,14 @@ export default class ProgramEdit extends Component {
             .then(response => {
                 notification.success({
                     message: 'Training Partner',
-                    description: "Program successfully saved!",
+                    description: success('Program', 'saved')
                 });
 
                 this.props.history.goBack();
             }).catch(error => {
             notification.error({
                 message: 'Training Partner',
-                description: error.message || 'Sorry! Something went wrong. Please try again!'
+                description: error.message || ERROR_UNDEFINED
             });
         });
     }
@@ -229,7 +238,7 @@ export default class ProgramEdit extends Component {
                         programTitle: {
                             value: programTitle,
                             validateStatus: 'error',
-                            errorMsg: 'You already have such titled program'
+                            errorMsg: ERROR_DUPLICATE_PROGRAM_TITLE
                         }
                     });
                 }
@@ -248,12 +257,12 @@ export default class ProgramEdit extends Component {
         if (programTitle.length < PROGRAM_TITLE_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Program title is too short (minimum ${PROGRAM_TITLE_MIN_LENGTH} symbols needed)`
+                errorMsg: error_length('Program title', 'short', PROGRAM_TITLE_MIN_LENGTH)
             }
         } else if (programTitle.length > PROGRAM_TITLE_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: `Program title is too long (maximum ${PROGRAM_TITLE_MAX_LENGTH} symbols allowed)`
+                errorMsg: error_length('Program title', 'long', PROGRAM_TITLE_MAX_LENGTH)
             }
         } else {
             return {
@@ -263,7 +272,7 @@ export default class ProgramEdit extends Component {
         }
     };
 
-    isProgramTitleValid() {
+    isFormValid() {
         return this.state.programTitle.validateStatus === 'success';
     }
 
@@ -277,42 +286,42 @@ export default class ProgramEdit extends Component {
         const {programTitle, exercises} = this.state;
 
         return (
-            <div className="program-new-container">
+            <div className="program-edit-container">
                 <h1 className="page-title">{this.renderPageTitle()}</h1>
 
-                <div className="program-new-content">
-                    <Form>
-                        <FormItem label="Program title:"
-                                  colon={false}
-                                  validateStatus={programTitle.validateStatus}
-                                  help={programTitle.errorMsg}>
+                <div className="program-edit-content">
+                    <Form onSubmit={this.handleSubmit}>
+                        <div className="program-edit-row">
+                            <FormItem label="Program title:"
+                                      colon={false}
+                                      validateStatus={programTitle.validateStatus}
+                                      help={programTitle.errorMsg}>
 
-                            <Input name="programTitle"
-                                   autoComplete="off"
-                                   value={programTitle.value}
-                                   onBlur={this.validateProgramTitleAvailability}
-                                   onChange={(event) => this.handleInputChange(event, this.validateProgramTitle)}/>
+                                <Input name="programTitle"
+                                       autoComplete="off"
+                                       value={programTitle.value}
+                                       onBlur={this.validateProgramTitleAvailability}
+                                       onChange={(event) => this.handleInputChange(event, this.validateProgramTitle)}/>
+                            </FormItem>
+                        </div>
+
+                        <div className="program-edit-row">
+                            <EditableTable dataSource={exercises}
+                                           columns={this.columns}
+                                           handleSave={this.handleSave}
+                                           handleDelete={this.handleDelete}/>
+                        </div>
+
+                        <Button className="program-edit-row" type="dashed" onClick={this.initializeExercise}>
+                            <Icon type="plus"/> Add an exercise
+                        </Button>
+
+                        <FormItem>
+                            <ButtonPrimary isValid={this.isFormValid}>
+                                Save
+                            </ButtonPrimary>
                         </FormItem>
                     </Form>
-
-                    <div className="program-new-row">
-                        <EditableTable dataSource={exercises}
-                                       columns={this.columns}
-                                       handleSave={this.handleSave}
-                                       handleDelete={this.handleDelete}/>
-                    </div>
-
-                    <Button className="program-new-row" type="dashed" onClick={this.initializeExercise}>
-                        <Icon type="plus"/> Add an exercise
-                    </Button>
-
-                    <Button type="primary"
-                            onClick={this.handleSubmit}
-                            size="large"
-                            className="program-new-primary-button"
-                            disabled={!this.isProgramTitleValid()}>
-                        Save
-                    </Button>
                 </div>
             </div>
         );

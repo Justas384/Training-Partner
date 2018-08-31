@@ -1,0 +1,11 @@
+.button-primary-button {
+    margin: 0 auto;
+    display: block;
+}
+
+.button-primary-button[disabled], .button-primary-button[disabled]:hover, .button-primary-button[disabled]:focus {
+    opacity: 0.6;
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
