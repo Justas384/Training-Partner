@@ -5,20 +5,14 @@ import {Button, Form, Input, notification} from 'antd';
 import './SignUp.css';
 import {
     EMAIL_MAX_LENGTH,
-    ERROR_DUPLICATE_EMAIL,
-    ERROR_DUPLICATE_USERNAME,
-    error_empty,
-    error_length,
-    ERROR_UNDEFINED,
-    error_validity,
     NAME_MAX_LENGTH,
     PASSWORD_MAX_LENGTH,
     PASSWORD_MIN_LENGTH,
-    SUCCESS_SIGN_UP,
     USERNAME_MAX_LENGTH,
     USERNAME_MIN_LENGTH,
 } from '../../../constants';
 import {checkEmailAvailability, checkUsernameAvailability, signup} from '../../../utility/APIUtilities';
+import Message from '../../../common/Message';
 
 const FormItem = Form.Item;
 
@@ -76,14 +70,14 @@ export default class SignUp extends Component {
             .then(response => {
                 notification.success({
                     message: 'Training Partner',
-                    description: SUCCESS_SIGN_UP
+                    description: Message.SUCCESS_SIGN_UP
                 });
 
                 this.props.history.push("/login");
             }).catch(error => {
             notification.error({
                 message: 'Training Partner',
-                description: error.message || ERROR_UNDEFINED
+                description: error.message || Message.ERROR_UNDEFINED
             });
         });
     }
@@ -192,7 +186,7 @@ export default class SignUp extends Component {
         if (name.length > NAME_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: error_length('Name', 'long', NAME_MAX_LENGTH)
+                errorMsg: Message.errorLength('Name', 'long', NAME_MAX_LENGTH)
             }
         } else {
             return {
@@ -206,12 +200,12 @@ export default class SignUp extends Component {
         if (username.length < USERNAME_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: error_length('Username', 'short', USERNAME_MIN_LENGTH)
+                errorMsg: Message.errorLength('Username', 'short', USERNAME_MIN_LENGTH)
             }
         } else if (username.length > USERNAME_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: error_length('Username', 'long', USERNAME_MAX_LENGTH)
+                errorMsg: Message.errorLength('Username', 'long', USERNAME_MAX_LENGTH)
             }
         } else {
             return {
@@ -259,7 +253,7 @@ export default class SignUp extends Component {
                         username: {
                             value: username,
                             validateStatus: 'error',
-                            errorMsg: ERROR_DUPLICATE_USERNAME
+                            errorMsg: Message.ERROR_DUPLICATE_USERNAME
                         }
                     });
                 }
@@ -312,7 +306,7 @@ export default class SignUp extends Component {
                         email: {
                             value: email,
                             validateStatus: 'error',
-                            errorMsg: ERROR_DUPLICATE_EMAIL
+                            errorMsg: Message.ERROR_DUPLICATE_EMAIL
                         }
                     });
                 }
@@ -331,7 +325,7 @@ export default class SignUp extends Component {
         if (!email) {
             return {
                 validateStatus: 'error',
-                errorMsg: error_empty('Email')
+                errorMsg: Message.errorEmpty('Email')
             }
         }
 
@@ -340,14 +334,14 @@ export default class SignUp extends Component {
         if (!EMAIL_REGEX.test(email)) {
             return {
                 validateStatus: 'error',
-                errorMsg: error_validity('Email')
+                errorMsg: Message.errorValidity('Email')
             }
         }
 
         if (email.length > EMAIL_MAX_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: error_length('Email', 'long', EMAIL_MAX_LENGTH)
+                errorMsg: Message.errorLength('Email', 'long', EMAIL_MAX_LENGTH)
             }
         }
 
@@ -361,12 +355,12 @@ export default class SignUp extends Component {
         if (password.length < PASSWORD_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: error_length('Password', 'short', PASSWORD_MIN_LENGTH)
+                errorMsg: Message.errorLength('Password', 'short', PASSWORD_MIN_LENGTH)
             }
         } else if (password.length > PASSWORD_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: error_length('Password', 'long', PASSWORD_MAX_LENGTH)
+                errorMsg: Message.errorLength('Password', 'long', PASSWORD_MAX_LENGTH)
             }
         } else {
             return {

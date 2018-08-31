@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Form, Icon, Input, notification} from 'antd';
 
-import {ACCESS_TOKEN, error_input, ERROR_LOGIN_CREDENTIALS, ERROR_UNDEFINED} from '../../../constants/index';
+import {ACCESS_TOKEN} from '../../../constants/index';
 import './Login.css';
 import {login} from '../../../utility/APIUtilities';
+import Message from "../../../common/Message";
 
 const FormItem = Form.Item;
 
@@ -47,12 +48,12 @@ class LoginForm extends Component {
                     if (error.status === 401) {
                         notification.error({
                             message: 'Training Partner',
-                            description: ERROR_LOGIN_CREDENTIALS
+                            description: Message.ERROR_LOGIN_CREDENTIALS
                         });
                     } else {
                         notification.error({
                             message: 'Training Partner',
-                            description: error.message || ERROR_UNDEFINED
+                            description: error.message || Message.ERROR_UNDEFINED
                         });
                     }
                 });
@@ -67,7 +68,7 @@ class LoginForm extends Component {
             <Form onSubmit={this.handleSubmit} className="login-form">
                 <FormItem>
                     {getFieldDecorator('username', {
-                        rules: [{required: true, message: error_input('username')}],
+                        rules: [{required: true, message: Message.errorInput('username')}],
                     })(
                         <Input
                             prefix={<Icon type="user"/>}
@@ -81,7 +82,7 @@ class LoginForm extends Component {
 
                 <FormItem>
                     {getFieldDecorator('password', {
-                        rules: [{required: true, message: error_input('password')}],
+                        rules: [{required: true, message: Message.errorInput('password')}],
                     })(
                         <Input
                             prefix={<Icon type="lock"/>}

@@ -4,16 +4,9 @@ import {Button, Form, Icon, Input, notification} from 'antd';
 import './ProgramEdit.css';
 import EditableTable from "../../common/EditableTable";
 import {checkProgramTitleAvailability, getProgram, saveProgram} from "../../utility/APIUtilities";
-import {
-    ERROR_DUPLICATE_PROGRAM_TITLE,
-    error_length,
-    error_loading,
-    ERROR_UNDEFINED,
-    PROGRAM_TITLE_MAX_LENGTH,
-    PROGRAM_TITLE_MIN_LENGTH,
-    success,
-} from "../../constants";
+import {PROGRAM_TITLE_MAX_LENGTH, PROGRAM_TITLE_MIN_LENGTH,} from "../../constants";
 import {ButtonPrimary} from "../../common/ButtonPrimary";
+import Message from "../../common/Message";
 
 const FormItem = Form.Item;
 
@@ -131,7 +124,7 @@ export default class ProgramEdit extends Component {
             }).catch(error => {
             notification.error({
                 message: 'Training Partner',
-                description: error.message || error_loading('Program')
+                description: error.message || Message.errorLoading('Program')
             });
         });
     };
@@ -169,14 +162,14 @@ export default class ProgramEdit extends Component {
             .then(response => {
                 notification.success({
                     message: 'Training Partner',
-                    description: success('Program', 'saved')
+                    description: Message.success('Program', 'saved')
                 });
 
                 this.props.history.goBack();
             }).catch(error => {
             notification.error({
                 message: 'Training Partner',
-                description: error.message || ERROR_UNDEFINED
+                description: error.message || Message.ERROR_UNDEFINED
             });
         });
     }
@@ -238,7 +231,7 @@ export default class ProgramEdit extends Component {
                         programTitle: {
                             value: programTitle,
                             validateStatus: 'error',
-                            errorMsg: ERROR_DUPLICATE_PROGRAM_TITLE
+                            errorMsg: Message.ERROR_DUPLICATE_PROGRAM_TITLE
                         }
                     });
                 }
@@ -257,12 +250,12 @@ export default class ProgramEdit extends Component {
         if (programTitle.length < PROGRAM_TITLE_MIN_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: error_length('Program title', 'short', PROGRAM_TITLE_MIN_LENGTH)
+                errorMsg: Message.errorLength('Program title', 'short', PROGRAM_TITLE_MIN_LENGTH)
             }
         } else if (programTitle.length > PROGRAM_TITLE_MAX_LENGTH) {
             return {
                 validationStatus: 'error',
-                errorMsg: error_length('Program title', 'long', PROGRAM_TITLE_MAX_LENGTH)
+                errorMsg: Message.errorLength('Program title', 'long', PROGRAM_TITLE_MAX_LENGTH)
             }
         } else {
             return {
