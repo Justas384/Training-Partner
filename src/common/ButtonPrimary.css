@@ -1,6 +1,5 @@
 .button-primary-button {
-    margin: 0 auto;
-    display: block;
+    margin-right: 5px;
 }
 
 .button-primary-button[disabled], .button-primary-button[disabled]:hover, .button-primary-button[disabled]:focus {

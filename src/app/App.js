@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom';
+import {Layout, notification} from 'antd';
 
 import {ACCESS_TOKEN} from '../constants/index';
 import './App.css';
@@ -8,11 +9,10 @@ import {getCurrentUser} from '../utility/APIUtilities';
 import SignUp from '../component/user/signup/SignUp';
 import Login from '../component/user/login/Login';
 import ProgramEdit from '../component/program/ProgramEdit';
-
-import {Layout, notification} from 'antd';
 import Diary from "../component/diary/Diary";
 import AppHeader from "../common/AppHeader";
 import LoadingIndicator from "../common/LoadingIndicator";
+import PrivateRoute from "../common/PrivateRoute";
 
 const {Content} = Layout;
 
@@ -87,22 +87,29 @@ class App extends Component {
     }
 
     render() {
-        if (this.state.isLoading) {
+        const {isLoading, isAuthenticated, currentUser} = this.state;
+
+        if (isLoading) {
             return <LoadingIndicator/>
         }
 
         return (
             <Layout className="app-container">
-                <AppHeader isAuthenticated={this.state.isAuthenticated}
-                           currentUser={this.state.currentUser}
-                           onLogout={this.handleLogout}/>
+                <AppHeader isAuthenticated={isAuthenticated}
+                           currentUser={currentUser}
+                           onLogout={this.handleLogout}
+                />
 
                 <Content className="app-content">
                     <div className="container">
                         <Switch>
                             <Route path="/signup" component={SignUp}/>
                             <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />}/>
-                            <Route path="/programs/edit" component={ProgramEdit}/>
+                            <PrivateRoute path="/programs/edit"
+                                          authenticated={isAuthenticated}
+                                          handleLogout={this.handleLogout}
+                                          component={ProgramEdit}
+                            />
                             <Route path={"/"} component={Diary}/>
                         </Switch>
                     </div>

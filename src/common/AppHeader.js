@@ -37,9 +37,9 @@ class AppHeader extends Component {
                 </Menu.Item>,
 
                 <Menu.Item key="/user/profile" className="profile-menu">
-                    <ProfileDropdownMenu
-                        currentUser={this.props.currentUser}
-                        handleMenuClick={this.handleMenuClick}/>
+                    <ProfileDropdownMenu currentUser={this.props.currentUser}
+                                         handleMenuClick={this.handleMenuClick}
+                    />
                 </Menu.Item>
             ];
         } else {

@@ -10,6 +10,10 @@
 
 .program-edit-row input {
     width: 200px;
-    display: block;
     margin-bottom: 4px;
+}
+
+.program-edit-buttons {
+    width: 100%;
+    text-align: center;
 }

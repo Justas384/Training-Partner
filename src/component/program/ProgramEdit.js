@@ -5,7 +5,7 @@ import './ProgramEdit.css';
 import EditableTable from "../../common/EditableTable";
 import {checkProgramTitleAvailability, getProgram, saveProgram} from "../../utility/APIUtilities";
 import {PROGRAM_TITLE_MAX_LENGTH, PROGRAM_TITLE_MIN_LENGTH,} from "../../constants";
-import {ButtonPrimary} from "../../common/ButtonPrimary";
+import ButtonPrimary from "../../common/ButtonPrimary";
 import Message from "../../common/Message";
 
 const FormItem = Form.Item;
@@ -84,6 +84,51 @@ export default class ProgramEdit extends Component {
         this.isFormValid = this.isFormValid.bind(this);
     }
 
+    componentDidMount() {
+        if (this.programId) this.loadProgram();
+    }
+
+    handleInputChange(event, validationFunction) {
+        const target = event.target;
+
+        const inputName = target.name;
+        const inputValue = target.value;
+
+        this.setState({
+            [inputName]: {
+                value: inputValue,
+                ...validationFunction(inputValue)
+            }
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        const {programTitle, exercises} = this.state;
+
+        const saveProgramRequest = {
+            id: this.programId,
+            programTitle: programTitle.value,
+            exercises,
+        };
+
+        saveProgram(saveProgramRequest)
+            .then(response => {
+                notification.success({
+                    message: 'Training Partner',
+                    description: Message.success('Program', 'saved')
+                });
+
+                this.props.history.goBack();
+            }).catch(error => {
+            notification.error({
+                message: 'Training Partner',
+                description: error.message || Message.ERROR_UNDEFINED
+            });
+        });
+    }
+
     initializeExercise = () => {
         const {exercises, count} = this.state;
 
@@ -128,51 +173,6 @@ export default class ProgramEdit extends Component {
             });
         });
     };
-
-    componentWillMount() {
-        if (this.programId) this.loadProgram();
-    }
-
-    handleInputChange(event, validationFunction) {
-        const target = event.target;
-
-        const inputName = target.name;
-        const inputValue = target.value;
-
-        this.setState({
-            [inputName]: {
-                value: inputValue,
-                ...validationFunction(inputValue)
-            }
-        });
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-
-        const {programTitle, exercises} = this.state;
-
-        const saveProgramRequest = {
-            id: this.programId,
-            programTitle: programTitle.value,
-            exercises,
-        };
-
-        saveProgram(saveProgramRequest)
-            .then(response => {
-                notification.success({
-                    message: 'Training Partner',
-                    description: Message.success('Program', 'saved')
-                });
-
-                this.props.history.goBack();
-            }).catch(error => {
-            notification.error({
-                message: 'Training Partner',
-                description: error.message || Message.ERROR_UNDEFINED
-            });
-        });
-    }
 
     handleSave = row => {
         const newData = [...this.state.exercises];
@@ -294,7 +294,8 @@ export default class ProgramEdit extends Component {
                                        autoComplete="off"
                                        value={programTitle.value}
                                        onBlur={this.validateProgramTitleAvailability}
-                                       onChange={(event) => this.handleInputChange(event, this.validateProgramTitle)}/>
+                                       onChange={(event) => this.handleInputChange(event, this.validateProgramTitle)}
+                                />
                             </FormItem>
                         </div>
 
@@ -302,17 +303,24 @@ export default class ProgramEdit extends Component {
                             <EditableTable dataSource={exercises}
                                            columns={this.columns}
                                            handleSave={this.handleSave}
-                                           handleDelete={this.handleDelete}/>
+                                           handleDelete={this.handleDelete}
+                            />
                         </div>
 
                         <Button className="program-edit-row" type="dashed" onClick={this.initializeExercise}>
                             <Icon type="plus"/> Add an exercise
                         </Button>
 
-                        <FormItem>
+                        <FormItem className="program-edit-buttons">
                             <ButtonPrimary isValid={this.isFormValid}>
-                                Save
+                                OK
                             </ButtonPrimary>
+                            <Button type="danger"
+                                    size="large"
+                                    onClick={this.props.history.goBack}
+                            >
+                                Cancel
+                            </Button>
                         </FormItem>
                     </Form>
                 </div>
