@@ -30,12 +30,6 @@ class AppHeader extends Component {
                     </Link>
                 </Menu.Item>,
 
-                <Menu.Item key="/market">
-                    <Link to="/">
-                        <Icon type="shop" className="nav-icon"/>
-                    </Link>
-                </Menu.Item>,
-
                 <Menu.Item key="/user/profile" className="profile-menu">
                     <ProfileDropdownMenu currentUser={this.props.currentUser}
                                          handleMenuClick={this.handleMenuClick}

@@ -7,6 +7,7 @@ import {checkProgramTitleAvailability, getProgram, saveProgram} from "../../util
 import {PROGRAM_TITLE_MAX_LENGTH, PROGRAM_TITLE_MIN_LENGTH,} from "../../constants";
 import ButtonPrimary from "../../common/ButtonPrimary";
 import Message from "../../common/Message";
+import LoadingIndicator from "../../common/LoadingIndicator";
 
 const FormItem = Form.Item;
 
@@ -18,15 +19,8 @@ export default class ProgramEdit extends Component {
             programTitle: {
                 value: ''
             },
-            exercises: [{
-                key: 0,
-                id: 0,
-                day: 0,
-                exercise: 'New exercise',
-                series: 0,
-                repeatsSerie: 0
-            }],
-            count: 1
+            exercises: null,
+            count: 0
         };
 
         this.programId = props.location.state !== undefined ? props.location.state.programId : 0;
@@ -85,7 +79,7 @@ export default class ProgramEdit extends Component {
     }
 
     componentDidMount() {
-        if (this.programId) this.loadProgram();
+        this.loadProgram();
     }
 
     handleInputChange(event, validationFunction) {
@@ -129,7 +123,23 @@ export default class ProgramEdit extends Component {
         });
     }
 
-    initializeExercise = () => {
+    initializeProgram = () => {
+        const exercises = [{
+            key: 0,
+            id: 0,
+            day: 0,
+            exercise: 'New exercise',
+            series: 0,
+            repeatsSerie: 0
+        }];
+
+        this.setState({
+            exercises,
+            count: 1
+        });
+    };
+
+    addExercise = () => {
         const {exercises, count} = this.state;
 
         const exercise = {
@@ -148,30 +158,36 @@ export default class ProgramEdit extends Component {
     };
 
     loadProgram = () => {
-        getProgram(this.programId)
-            .then(response => {
-                let {count} = this.state;
-                let exercises = response.exercises.map(exercise => {
-                    return {
-                        key: count++,
-                        ...exercise
-                    };
+        if (this.programId) {
+            getProgram(this.programId)
+                .then(response => {
+                    let {count} = this.state;
+                    let exercises = response.exercises.map(exercise => {
+                        return {
+                            key: count++,
+                            ...exercise
+                        };
+                    });
+
+                    this.setState({
+                        programTitle: {
+                            value: response.programTitle,
+                            validateStatus: 'success'
+                        },
+                        exercises,
+                        count
+                    });
+                }).catch(error => {
+                notification.error({
+                    message: 'Training Partner',
+                    description: error.message || Message.errorLoading('Program')
                 });
 
-                this.setState({
-                    programTitle: {
-                        value: response.programTitle,
-                        validateStatus: 'success'
-                    },
-                    exercises,
-                    count
-                });
-            }).catch(error => {
-            notification.error({
-                message: 'Training Partner',
-                description: error.message || Message.errorLoading('Program')
+                this.programId = 0;
+
+                this.initializeProgram();
             });
-        });
+        } else this.initializeProgram();
     };
 
     handleSave = row => {
@@ -278,6 +294,8 @@ export default class ProgramEdit extends Component {
     render() {
         const {programTitle, exercises} = this.state;
 
+        if (!exercises) return <LoadingIndicator/>;
+
         return (
             <div className="program-edit-container">
                 <h1 className="page-title">{this.renderPageTitle()}</h1>
@@ -307,7 +325,7 @@ export default class ProgramEdit extends Component {
                             />
                         </div>
 
-                        <Button className="program-edit-row" type="dashed" onClick={this.initializeExercise}>
+                        <Button className="program-edit-row" type="dashed" onClick={this.addExercise}>
                             <Icon type="plus"/> Add an exercise
                         </Button>
 
