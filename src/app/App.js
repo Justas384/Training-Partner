@@ -13,6 +13,7 @@ import Diary from "../component/diary/Diary";
 import AppHeader from "../common/AppHeader";
 import LoadingIndicator from "../common/LoadingIndicator";
 import PrivateRoute from "../common/PrivateRoute";
+import Message from "../common/Message";
 
 const {Content} = Layout;
 
@@ -79,7 +80,7 @@ class App extends Component {
     handleLogin() {
         notification.success({
             message: 'Training Partner',
-            description: "You are successfully logged in.",
+            description: Message.SUCCESS_LOGIN,
         });
 
         this.loadCurrentUser();

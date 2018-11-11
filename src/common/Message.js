@@ -1,5 +1,6 @@
 export default class Message {
     static SUCCESS_SIGN_UP = 'You are successfully registered. Please login to continue!';
+    static SUCCESS_LOGIN = 'You are successfully logged in.';
     static ERROR_DUPLICATE_USERNAME = 'Username is already taken.';
     static ERROR_DUPLICATE_EMAIL = 'Email is already registered.';
     static ERROR_LOGIN_CREDENTIALS = 'Your username or password is incorrect. Please try again!';
